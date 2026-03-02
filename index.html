@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pinco Quiz - Movie Trivia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#111;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+        .quiz-box{
+            background:#1e1e1e;
+            padding:20px;
+            border-radius:10px;
+            max-width:500px;
+            margin:auto;
+        }
+        h1{
+            color:#00ffcc;
+        }
+        button{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#00ffcc;
+            color:black;
+        }
+        #nextBtn{
+            background:#00ffcc;
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎬 Pinco Quiz</h1>
+
+<div class="quiz-box">
+    <h2 id="question">Question loading...</h2>
+
+    <button onclick="checkAnswer(this)" id="btn0"></button>
+    <button onclick="checkAnswer(this)" id="btn1"></button>
+    <button onclick="checkAnswer(this)" id="btn2"></button>
+    <button onclick="checkAnswer(this)" id="btn3"></button>
+
+    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+
+    <h3 id="scoreArea"></h3>
+</div>
+
+<script>
+
+let questions = [
+{
+    question:"Who directed Titanic?",
+    options:["Steven Spielberg","James Cameron","Nolan","Ridley Scott"],
+    answer:"James Cameron"
+},
+{
+    question:"Who played Iron Man?",
+    options:["Chris Evans","Robert Downey Jr.","Thor","Hulk"],
+    answer:"Robert Downey Jr."
+},
+{
+    question:"Which movie features Jack Sparrow?",
+    options:["Avatar","Pirates of the Caribbean","Jumanji","Titanic"],
+    answer:"Pirates of the Caribbean"
+},
+{
+    question:"Who played Rancho in 3 Idiots?",
+    options:["Salman Khan","Aamir Khan","Ranbir Kapoor","Shahid Kapoor"],
+    answer:"Aamir Khan"
+},
+{
+    question:"Lagaan is based on which sport?",
+    options:["Football","Cricket","Tennis","Hockey"],
+    answer:"Cricket"
+},
+{
+    question:"Which superhero is called Dark Knight?",
+    options:["Superman","Batman","Flash","Thor"],
+    answer:"Batman"
+},
+{
+    question:"Which studio made Frozen?",
+    options:["Pixar","Disney","Sony","DreamWorks"],
+    answer:"Disney"
+},
+{
+    question:"Which movie won Oscar in 2020?",
+    options:["Joker","Parasite","1917","Titanic"],
+    answer:"Parasite"
+},
+{
+    question:"Who played Bajrangi?",
+    options:["Salman Khan","SRK","Akshay Kumar","Aamir Khan"],
+    answer:"Salman Khan"
+},
+{
+    question:"Which movie features dinosaurs?",
+    options:["Godzilla","Jurassic Park","Kong","Rampage"],
+    answer:"Jurassic Park"
+}
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selected = "";
+
+function loadQuestion(){
+    document.getElementById("question").innerText =
+        questions[currentQuestion].question;
+
+    for(let i=0;i<4;i++){
+        document.getElementById("btn"+i).innerText =
+        questions[currentQuestion].options[i];
+    }
+
+    selected="";
+}
+
+function checkAnswer(button){
+    selected = button.innerText;
+
+    if(selected === questions[currentQuestion].answer){
+        score++;
+        alert("Correct ✅");
+    }else{
+        alert("Wrong ❌");
+    }
+}
+
+function nextQuestion(){
+    currentQuestion++;
+
+    if(currentQuestion < questions.length){
+        loadQuestion();
+    }else{
+        document.querySelector(".quiz-box").innerHTML =
+        "<h2>Quiz Finished 🎉</h2><h3>Your Score: "
+        +score+" / "+questions.length+"</h3>";
+    }
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
